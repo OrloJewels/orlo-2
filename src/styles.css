@@ -1,0 +1,301 @@
+:root{
+  --ink:      #0a0a0a;
+  --card:     rgba(10,10,10,0.92);
+  --maroon:   #7a2430;
+  --white:    #ffffff;
+  --bone:     #f2efe9;
+  --smoke:    #b9b3ab;
+  --line:     rgba(255,255,255,0.35);
+}
+
+*{ box-sizing:border-box; }
+html,body,#root{ margin:0; padding:0; }
+body{
+  background:var(--ink);
+  color:var(--white);
+  font-family:'Manrope', sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Mobile-only surface: centers as a phone-width card on any screen */
+.promo{
+  position:relative;
+  width:100%;
+  max-width:480px;
+  margin:0 auto;
+  aspect-ratio:864/1821; /* matches banner.jpg's native proportions */
+  overflow:hidden;
+  background:var(--ink);
+}
+
+/* ---------- background banner ---------- */
+/* Single full-bleed composited image (cap/bag top, model/shoes bottom,
+   empty middle already built into the photo). Drop it in as
+   public/assets/images/banner.jpg. */
+.promo__banner{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+.promo__banner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+}
+.promo__scrim{
+  position:absolute; inset:0;
+  /* Light touch only — the banner's own empty middle is already
+     near-black, this just nudges contrast for the text/card sitting
+     in it without darkening the product shots at the edges. */
+  background:
+    radial-gradient(ellipse 62% 46% at 50% 50%, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.05) 70%, transparent 100%);
+}
+
+/* ---------- content ---------- */
+.promo__content{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:28px 22px 32px;
+}
+
+.brand{
+  display:flex;
+  justify-content:center;
+  margin-bottom:14px;
+}
+.brand__logo{
+  width:auto;
+  height:64px;
+  object-fit:contain;
+}
+
+.headline{
+  margin:6px 0 0;
+  line-height:0.85;
+}
+.headline__pre{
+  display:block;
+  font-family:'Big Shoulders Display', sans-serif;
+  font-weight:800;
+  text-transform:uppercase;
+  font-size:clamp(38px, 10.5vw, 50px);
+  letter-spacing:0.01em;
+  color:var(--white);
+}
+.headline__sale{
+  display:block;
+  font-family:'Permanent Marker', cursive;
+  font-weight:400;
+  text-transform:uppercase;
+  font-size:clamp(56px, 17vw, 82px);
+  color:var(--white);
+  transform:rotate(-2deg) skewX(-3deg);
+  margin-top:2px;
+}
+
+.subhead{
+  margin:14px 0 6px;
+  font-size:14px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--bone);
+}
+.subhead strong{ color:var(--white); }
+.subhead__rule{
+  display:block;
+  width:64px;
+  height:2px;
+  background:var(--white);
+  margin:0 0 20px;
+}
+
+.offer{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  border:1.5px solid var(--line);
+  padding:16px 28px;
+  margin-bottom:26px;
+}
+.offer__eyebrow{
+  font-size:12px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--bone);
+}
+.offer__amount{
+  font-family:'Big Shoulders Display', sans-serif;
+  font-weight:800;
+  font-size:clamp(36px, 10vw, 46px);
+  letter-spacing:0.01em;
+  text-transform:uppercase;
+  color:var(--white);
+  line-height:1.05;
+}
+.offer__terms{
+  font-size:12px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--bone);
+}
+
+/* ---------- card ---------- */
+.card{
+  width:100%;
+  background:var(--card);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:14px;
+  padding:24px 20px 22px;
+  backdrop-filter:blur(6px);
+}
+.card__title{
+  margin:0 0 8px;
+  font-family:'Manrope', sans-serif;
+  font-weight:800;
+  font-size:18px;
+  letter-spacing:0.01em;
+  text-transform:uppercase;
+}
+.card__subtitle{
+  margin:0 0 20px;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--smoke);
+}
+
+.card__form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.input{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:6px;
+  padding:0 14px;
+  height:48px;
+  background:rgba(255,255,255,0.02);
+}
+.input:focus-within{
+  border-color:var(--white);
+}
+.input__icon{
+  width:18px;
+  height:18px;
+  flex:0 0 18px;
+  color:var(--smoke);
+}
+.input input{
+  flex:1;
+  min-width:0;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:var(--white);
+  font-family:'Manrope', sans-serif;
+  font-size:14px;
+  height:100%;
+}
+.input input::placeholder{ color:var(--smoke); }
+
+.input--phone .input__code{
+  background:transparent;
+  border:none;
+  outline:none;
+  color:var(--white);
+  font-family:'Manrope', sans-serif;
+  font-size:14px;
+  flex:0 0 auto;
+}
+.input--phone .input__code option{ color:#111; }
+.input__divider{
+  width:1px;
+  height:22px;
+  background:rgba(255,255,255,0.2);
+  flex:0 0 1px;
+}
+
+.card__submit{
+  margin-top:6px;
+  height:50px;
+  background:var(--white);
+  color:#111;
+  border:none;
+  border-radius:6px;
+  font-family:'Manrope', sans-serif;
+  font-weight:800;
+  font-size:13px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform 0.1s ease, opacity 0.15s ease;
+}
+.card__submit:hover{ opacity:0.92; }
+.card__submit:active{ transform:translateY(1px); }
+.card__submit:focus-visible{
+  outline:2px solid var(--white);
+  outline-offset:2px;
+}
+.card__submit[disabled]{
+  opacity:0.55;
+  cursor:default;
+}
+
+.card__status{
+  margin:10px 0 0;
+  min-height:16px;
+  font-size:12px;
+  text-align:center;
+}
+.card__status[data-state="ok"]{ color:#8fbf8a; }
+.card__status[data-state="error"]{ color:#e0918f; }
+
+/* ---------- perks row ---------- */
+.perks{
+  list-style:none;
+  display:flex;
+  justify-content:space-between;
+  width:100%;
+  max-width:420px;
+  margin:26px 0 0;
+  padding:0;
+}
+.perks__item{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  padding:0 6px;
+}
+.perks__icon{
+  width:36px;
+  height:36px;
+  border:1px solid rgba(255,255,255,0.3);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--white);
+}
+.perks__icon svg{ width:18px; height:18px; }
+.perks__label{
+  font-size:10.5px;
+  line-height:1.35;
+  letter-spacing:0.02em;
+  color:var(--bone);
+}
+
+@media (prefers-reduced-motion: no-preference){
+  .headline__sale{ animation:none; }
+}
