@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
 const COUNTRY_CODES = ['+91', '+1', '+44', '+971', '+61'];
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const MOBILE_REGEX = /^\d{7,15}$/;
 
 const INITIAL_FORM = { name: '', email: '', countryCode: '+91', mobile: '' };
 
@@ -25,6 +27,16 @@ export default function RegisterForm() {
 
     if (!name || !email || !mobile) {
       setStatus({ state: 'error', message: 'Fill in every field before subscribing.' });
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+      setStatus({ state: 'error', message: 'Enter a valid email address.' });
+      return;
+    }
+
+    if (!MOBILE_REGEX.test(mobile)) {
+      setStatus({ state: 'error', message: 'Enter a valid 7–15 digit mobile number.' });
       return;
     }
 
@@ -87,6 +99,7 @@ await axios.post(API_URL, JSON.stringify(payload), {
             type="email"
             placeholder="Email Address"
             autoComplete="email"
+            pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
             value={form.email}
             onChange={handleChange}
             required
@@ -117,6 +130,10 @@ await axios.post(API_URL, JSON.stringify(payload), {
             type="tel"
             placeholder="Mobile Number"
             autoComplete="tel-national"
+            inputMode="numeric"
+            pattern="[0-9]{7,15}"
+            minLength={7}
+            maxLength={15}
             value={form.mobile}
             onChange={handleChange}
             required
