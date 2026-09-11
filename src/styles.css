@@ -23,13 +23,13 @@ body{
   width:100%;
   max-width:480px;
   margin:0 auto;
-  aspect-ratio:864/1821; /* matches banner.jpg's native proportions */
+  height: 100vh;
   overflow:hidden;
   background:var(--ink);
 }
 
 .promo--orlo{
-  aspect-ratio:2/3;
+  /* aspect-ratio:2/3; */
   background:#f4f0e8;
 }
 
@@ -65,7 +65,7 @@ body{
 .promo--orlo .promo__content{
   min-height:100%;
   justify-content:flex-start;
-  padding:63% 34px 0;
+  padding:95% 34px 0;
 }
 
 /* ---------- content ---------- */
