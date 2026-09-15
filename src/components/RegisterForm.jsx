@@ -141,7 +141,7 @@ await axios.post(API_URL, JSON.stringify(payload), {
         </div>
 
         <button className="card__submit" type="submit" disabled={submitting}>
-          {submitting ? 'Sending…' : 'Subscribe Now'}
+          {submitting ? 'Sending…' : 'Sign Up'}
         </button>
 
         <p className="card__status" data-state={status.state} role="status" aria-live="polite">
