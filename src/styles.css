@@ -361,3 +361,36 @@ body{
 @media (prefers-reduced-motion: no-preference){
   .headline__sale{ animation:none; }
 }
+.thank-you__content{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  width:100%;
+  min-height:100%;
+  padding:24px 34px;
+}
+.promo--orlo .card--thanks{
+  padding:34px 24px;
+  background:rgba(255,255,255,0.72);
+  text-align:center;
+}
+.thanks__icon{
+  width:56px;
+  height:56px;
+  margin:0 auto 18px;
+  color:#294b5b;
+}
+.thanks__title{
+  margin:0 0 8px;
+  color:#172f3a;
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:-0.02em;
+}
+.thanks__message{
+  margin:0;
+  color:#526d79;
+  font-size:14px;
+  line-height:1.6;
+}

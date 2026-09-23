@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 const API_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
 const COUNTRY_CODES = ['+91', '+1', '+44', '+971', '+61'];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -9,6 +9,7 @@ const MOBILE_REGEX = /^\d{7,15}$/;
 const INITIAL_FORM = { name: '', email: '', countryCode: '+91', mobile: '' };
 
 export default function RegisterForm() {
+    const navigate = useNavigate();
   const [form, setForm] = useState(INITIAL_FORM);
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState({ state: '', message: '' });
@@ -49,11 +50,10 @@ export default function RegisterForm() {
     setSubmitting(true);
     setStatus({ state: '', message: '' });
 try {
-await axios.post(API_URL, JSON.stringify(payload), {
-  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-});
-  setStatus({ state: 'ok', message: "You're on the list." });
-  setForm(INITIAL_FORM);
+  await axios.post(API_URL, JSON.stringify(payload), {
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+  });
+  navigate('/thank-you', { replace: true, state: { submitted: true } });
 } catch (err) {
   console.error('Registration failed:', err);
   setStatus({
