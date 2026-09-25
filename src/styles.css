@@ -23,7 +23,7 @@ body{
   width:100%;
   max-width:480px;
   margin:0 auto;
-  height: 100vh;
+  min-height:100vh;
   overflow:hidden;
   background:var(--ink);
 }
@@ -65,7 +65,7 @@ body{
 .promo--orlo .promo__content{
   min-height:100%;
   justify-content:flex-start;
-  padding:95% 34px 0;
+  padding:95% 34px 22px;
 }
 
 /* ---------- content ---------- */
@@ -73,6 +73,7 @@ body{
   position:relative;
   z-index:1;
   display:flex;
+  width:100%;
   flex-direction:column;
   align-items:center;
   text-align:center;
@@ -164,6 +165,7 @@ body{
 /* ---------- card ---------- */
 .card{
   width:100%;
+  max-width:100%;
   background:var(--card);
   border:1px solid rgba(255,255,255,0.08);
   border-radius:14px;
@@ -322,6 +324,156 @@ body{
 .promo--orlo .card__status[data-state="error"]{ color:#a54e4e; }
 .promo--orlo .card__status:empty{ display:none; }
 
+/* ---------- consent and legal links ---------- */
+.consent{
+  display:grid;
+  grid-template-columns:16px 1fr;
+  gap:9px;
+  align-items:start;
+  color:#e1e9ec;
+  font-size:10.5px;
+  line-height:1.45;
+  text-align:left;
+  cursor:pointer;
+}
+.consent input{
+  width:15px;
+  height:15px;
+  margin:1px 0 0;
+  accent-color:#294b5b;
+}
+.consent a,
+.site-footer a{
+  color:inherit;
+  font-weight:700;
+  text-underline-offset:2px;
+}
+.promo--orlo .consent a{
+  color:#fff;
+}
+.consent a:focus-visible,
+.site-footer a:focus-visible,
+.legal-card__back:focus-visible,
+.contact-card__email:focus-visible{
+  outline:2px solid #355f73;
+  outline-offset:3px;
+  border-radius:2px;
+}
+.site-footer{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:6px;
+  margin:16px 0 0;
+  color:#294b5b;
+  font-size:10px;
+  line-height:1.5;
+}
+.promo--orlo > .promo__content > .site-footer{
+  color:#f5eadc;
+  text-shadow:0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ---------- policy, terms and contact pages ---------- */
+.legal-page{
+  min-height:100vh;
+  padding:24px 16px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(70,111,131,0.28), transparent 38%),
+    #092d4f;
+  color:#17313e;
+}
+.legal-card{
+  width:min(100%, 760px);
+  margin:0 auto;
+  padding:28px clamp(20px, 5vw, 48px);
+  border:1px solid rgba(255,255,255,0.35);
+  border-radius:18px;
+  background:#f7f2ea;
+  box-shadow:0 24px 70px rgba(0,0,0,0.24);
+}
+.legal-card__back{
+  display:inline-flex;
+  gap:7px;
+  align-items:center;
+  margin-bottom:30px;
+  color:#355f73;
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+}
+.legal-card__eyebrow{
+  margin:0 0 7px;
+  color:#6c8792;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+}
+.legal-card h1{
+  margin:0;
+  color:#0b2e4e;
+  font-family:Georgia, serif;
+  font-size:clamp(32px, 8vw, 48px);
+  font-weight:500;
+  line-height:1.1;
+}
+.legal-card__effective{
+  margin:10px 0 0;
+  color:#6c7d84;
+  font-size:11px;
+}
+.legal-card__intro{
+  margin:24px 0 32px;
+  color:#294b5b;
+  font-size:16px;
+  line-height:1.7;
+}
+.legal-card section{
+  padding:22px 0;
+  border-top:1px solid rgba(41,75,91,0.15);
+}
+.legal-card section h2{
+  margin:0 0 10px;
+  color:#173a4b;
+  font-size:16px;
+}
+.legal-card section p,
+.contact-card__note{
+  margin:8px 0 0;
+  color:#48616c;
+  font-size:13px;
+  line-height:1.75;
+}
+.legal-card > .site-footer{
+  padding-top:20px;
+  border-top:1px solid rgba(41,75,91,0.15);
+}
+.legal-page--contact{
+  display:flex;
+  align-items:center;
+}
+.contact-card{
+  max-width:620px;
+}
+.contact-card__email{
+  display:inline-block;
+  margin:0 0 18px;
+  color:#0b5271;
+  font-size:clamp(18px, 5vw, 25px);
+  font-weight:800;
+  text-underline-offset:4px;
+}
+.contact-card__note{
+  margin-bottom:30px;
+}
+
+@media (max-width:380px){
+  .promo--orlo .promo__content{ padding-inline:22px; }
+  .promo--orlo .card{ padding:14px; }
+  .consent{ font-size:9.5px; }
+}
+
 /* ---------- perks row ---------- */
 .perks{
   list-style:none;
@@ -365,12 +517,13 @@ body{
   position:relative;
   z-index:1;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   width:100%;
-  min-height:100%;
-  padding:24px 34px;
+  min-height:100vh;
+  padding:95% 34px 32px;
 }
 .promo--orlo .card--thanks{
+  width:100%;
   padding:34px 24px;
   background:rgba(255,255,255,0.72);
   text-align:center;
@@ -393,4 +546,9 @@ body{
   color:#526d79;
   font-size:14px;
   line-height:1.6;
+}
+
+@media (max-width:380px){
+  .thank-you__content{ padding-inline:22px; }
+  .promo--orlo .card--thanks{ padding:28px 20px; }
 }

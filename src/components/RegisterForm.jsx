@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const API_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
 const COUNTRY_CODES = ['+91', '+1', '+44', '+971', '+61'];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const MOBILE_REGEX = /^\d{7,15}$/;
 
-const INITIAL_FORM = { name: '', email: '', countryCode: '+91', mobile: '' };
+const INITIAL_FORM = {
+  name: '',
+  email: '',
+  countryCode: '+91',
+  mobile: '',
+  privacyConsent: false,
+  marketingConsent: false,
+};
 
 export default function RegisterForm() {
     const navigate = useNavigate();
@@ -15,8 +22,8 @@ export default function RegisterForm() {
   const [status, setStatus] = useState({ state: '', message: '' });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, value, checked, type } = e.target;
+    setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
   const handleSubmit = async (e) => {
@@ -41,10 +48,19 @@ export default function RegisterForm() {
       return;
     }
 
+    if (!form.privacyConsent) {
+      setStatus({ state: 'error', message: 'Please accept the Privacy Policy and Offer Terms to continue.' });
+      return;
+    }
+
     const payload = {
       name,
       number: `${form.countryCode} ${mobile}`,
       email,
+      privacyConsent: true,
+      marketingConsent: form.marketingConsent,
+      consentVersion: '2026-09-26',
+      consentedAt: new Date().toISOString(),
     };
 
     setSubmitting(true);
@@ -139,6 +155,34 @@ try {
             required
           />
         </div>
+
+        <label className="consent">
+          <input
+            name="privacyConsent"
+            type="checkbox"
+            checked={form.privacyConsent}
+            onChange={handleChange}
+            required
+          />
+          <span>
+            I agree to the <Link to="/privacy-policy">Privacy Policy</Link> and{' '}
+            <Link to="/offer-terms">Pre-Launch Offer Terms</Link>, and consent to ORLO
+            processing my personal information for the purposes described there.
+          </span>
+        </label>
+
+        <label className="consent">
+          <input
+            name="marketingConsent"
+            type="checkbox"
+            checked={form.marketingConsent}
+            onChange={handleChange}
+          />
+          <span>
+            I would like to receive optional updates, offers and promotional messages
+            from ORLO by WhatsApp, SMS and email.
+          </span>
+        </label>
 
         <button className="card__submit" type="submit" disabled={submitting}>
           {submitting ? 'Sending…' : 'Sign Up'}
